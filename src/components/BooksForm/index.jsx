@@ -1,15 +1,20 @@
 import { useContext, useState } from "react";
-import { BooksContext } from "../../contexts/Books";
 import { v4 as uuidv4 } from 'uuid';
+import { BooksContext } from "../../contexts/Books";
+import { ADD_BOOK } from "../../reducers/BookReducer";
 import './index.scss';
 
 export default function BookForm(props) {
-  const { addBook } = useContext(BooksContext);
+  const { dispatch } = useContext(BooksContext);
   
   const submit = e => {
     if (input['title'] && input['author']) {
       const id = uuidv4();
-      addBook(id, input['title'], input['author']);
+      dispatch({type: ADD_BOOK, payload: {
+        id: id,
+        title: input['title'],
+        author: input['author'],
+      }});
     }
     setInput('');
     e.preventDefault();

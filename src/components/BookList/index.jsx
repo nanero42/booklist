@@ -1,12 +1,13 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { BooksContext } from "../../contexts/Books";
+import { REMOVE_BOOK } from "../../reducers/BookReducer";
 import "./index.scss";
 
 export default function BookList(props) {
-  const { books, removeBook } = useContext(BooksContext);
+  const { books, dispatch } = useContext(BooksContext);
   
   const deleteBook = id => {
-    removeBook(id);
+    dispatch({type: REMOVE_BOOK, payload: {id}});
   }
 
   return(
